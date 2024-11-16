@@ -16,6 +16,40 @@ Author URL: http://w3layouts.com
     <!-- //web fonts -->
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/style-starter.css">
+    <style>
+        .breadcrum-bg {
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrum-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay for better text visibility */
+        }
+
+        .breadcrumb-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .breadcrumb-content p, 
+        .breadcrumb-content a {
+            color: #fff;
+            font-size: 1.2em;
+            text-decoration: none;
+        }
+
+        .breadcrumb-content a:hover {
+            color: #ff4c4c;
+        }
+    </style>
   </head>
   <body>
 
@@ -53,10 +87,12 @@ Author URL: http://w3layouts.com
   </nav>
 </section>
 <section class="w3l-service-breadcrum">
-  <div class="breadcrum-bg">
+  <div class="breadcrum-bg" style="background: url('assets/images/2.jpg') no-repeat center; background-size: cover;">
     <div class="container py-5">
-      <p><a href="index.html">Home</a> &nbsp; / &nbsp; Services</p>
+      <div class="breadcrumb-content">
+        <p><a href="index.html">Home</a> &nbsp; / &nbsp; Services</p>
       </div>
+    </div>
   </div>
 </section>
 <section class="w3l-features-4">

@@ -52,12 +52,38 @@ Author URL: http://w3layouts.com
   </nav>
 </section>
 <section class="w3l-contact-breadcrum">
-  <div class="breadcrum-bg">
+  <div class="breadcrum-bg" style="background: url('assets/images/3.jpg') no-repeat center; background-size: cover;">
     <div class="container py-5">
       <p><a href="index.html">Home</a> &nbsp; / &nbsp; Contact</p>
-     </div>
+    </div>
   </div>
 </section>
+
+<style>
+.breadcrum-bg {
+    position: relative;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrum-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Adjustable overlay */
+}
+
+.breadcrum-bg p, 
+.breadcrum-bg a {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+}
+</style>
 <!-- contact -->
 <section class="w3l-contacts-12" id="contact">
     <div class="contact-top pt-5">
@@ -67,19 +93,16 @@ Author URL: http://w3layouts.com
                <!-- contact form -->
                <div class="contacts12-main col-lg-6 ">
                    
-                <form id="contact-form" action="" method="" class="main-input">
+                <form id="contact-form" class="main-input" onsubmit="return false">
                     <div class="top-inputs d-grid">
                         <input type="text" placeholder="Name" name="name" id="w3lName" required="">
-                       
                     </div>
                     <input type="email" name="email" placeholder="Email" id="Sender" required="">
-                   
                     <textarea placeholder="Message" name="Message" id="Message" required=""></textarea>
                     <div class="text-right">
                         <button type="submit" class="btn btn-theme2">Submit Now</button>
                     </div>
                 </form>
-                <script src="assets/js/google sheet.js"></script>
             </div>
             <!-- //contact form -->
                 <!-- contact address -->
@@ -120,7 +143,7 @@ Author URL: http://w3layouts.com
                                 <span class="fa fa-file-pdf-o" aria-hidden="true"></span>
                            </div>
                             <div class="cont-add-rgt">
-                                <a href="assets/Docs/updated3 cv.pdf" target="_blank">
+                                <a href="assets/Docs/newResume.pdf" target="_blank">
                                     <p class="contact-text-sub">Download CV</p>
                                 </a>
                             </div>
@@ -156,7 +179,7 @@ Author URL: http://w3layouts.com
           <a href="https://twitter.com/AM90613Musthafa" class="twitter"><span class="fa fa-twitter"></span></a>
       </div>
           <div class="bottom-copies text-center">
-              <p class="copy-footer-29">© 2021 My Website. All rights reserved</p>
+              <p class="copy-footer-29">© 2024 My Website. All rights reserved</p>
                
           </div>
       </div>
@@ -211,6 +234,46 @@ Author URL: http://w3layouts.com
 <!-- Smooth scrolling -->
 
 
+
+<!-- Add these before closing </body> tag -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-database-compat.js"></script>
+<!-- Firebase Config -->
+<script src="assets/js/firebase-config.js"></script>
+
+<script>
+// Form submission handling
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('w3lName').value;
+            const email = document.getElementById('Sender').value;
+            const message = document.getElementById('Message').value;
+            const timestamp = new Date().getTime();
+
+            // Save to Firebase
+            firebase.database().ref('messages/' + timestamp).set({
+                name: name,
+                email: email,
+                message: message,
+                timestamp: timestamp
+            })
+            .then(() => {
+                alert('Message sent successfully!');
+                form.reset();
+            })
+            .catch((error) => {
+                alert('Error sending message: ' + error.message);
+            });
+        });
+    }
+});
+</script>
 
 </body>
 
